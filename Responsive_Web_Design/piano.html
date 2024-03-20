@@ -37,6 +37,20 @@
             <div class="key black--key"></div>
         </div>
     </div>
+    
+    <script>
+        const noteSound = new Audio("piano.mp3");
+
+        function playNote() {
+            noteSound.play();
+        }
+
+        const keys = document.querySelectorAll('.key');
+        keys.forEach(key => {
+            key.addEventListener('click', playNote);
+        });
+    </script>
+
 </body>
 
 </html>
