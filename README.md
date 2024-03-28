@@ -12,13 +12,13 @@ Please note that while some solutions are original work, others may closely rese
 
 ## Courses Covered
 
-- O Responsive Web Design Certification
-- X JavaScript Algorithms and Data Structures Certification (In Progress)
-- X Front End Development Libraries Certification (In Progress)
-- X Data Visualization Certification (In Progress)
-- X APIs and Microservices Certification (In Progress)
-- X Quality Assurance Certification (In Progress)
-- O Scientific Computing with Python Certification
-- X Data Analysis with Python Certification (In Progress)
-- X Information Security Certification (In Progress)
-- X Machine Learning with Python Certification (In Progress)
+- ⚪ Responsive Web Design Certification (In Progress)
+- ❌ JavaScript Algorithms and Data Structures Certification 
+- ⚪ Front End Development Libraries Certification (In Progress)
+- ❌ Data Visualization Certification
+- ❌ APIs and Microservices Certification
+- ❌ Quality Assurance Certification 
+- ✔️ Scientific Computing with Python Certification 
+- ❌ Data Analysis with Python Certification 
+- ❌ Information Security Certification 
+- ❌ Machine Learning with Python Certification 
