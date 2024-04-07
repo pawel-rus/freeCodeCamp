@@ -13,7 +13,7 @@ Please note that while some solutions are original work, others may closely rese
 ## Courses Covered
 
 - ⚪ Responsive Web Design Certification (In Progress)
-- ❌ JavaScript Algorithms and Data Structures Certification 
+- ⚪ JavaScript Algorithms and Data Structures Certification (In Progress)
 - ⚪ Front End Development Libraries Certification (In Progress)
 - ❌ Data Visualization Certification
 - ❌ APIs and Microservices Certification
