@@ -121,5 +121,4 @@ const sortSongs = (array) => {
         return 0;
     });
 };
-
-renderSongs(userData ? .songs);
+// end of streak  :(
