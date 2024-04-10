@@ -77,8 +77,8 @@ const allSongs = [{
 ];
 
 // Web Audio API, lets you generate and process audio in web applications
-const audio = new Audio();
 
+const audio = new Audio();
 //The spread operator (...) allows you to copy all elements from one array into another. It can also be used to concatenate multiple arrays into one. 
 let userData = {
     songs: [...allSongs],
@@ -86,6 +86,23 @@ let userData = {
     songCurrentTime: 0,
 };
 
+// The find() method retrieves the first element within an array that fulfills the conditions specified in the provided callback function.
+// If no element satisfies the condition, the method returns undefined
+const playSong = (id) => {
+    const song = userData.songs.find((song) => song.id === id);
+    audio.src = song.src;
+    audio.title = song.title;
+    if (userData.currentSong === null || userData.currentSong.id !== song.id) {
+        audio.currentTime = 0;
+    } else {
+        audio.currentTime = userData.songCurrentTime;
+    }
+    userData.currentSong = song;
+    playButton.classList.add('playing');
+    audio.play();
+};
+
+const pauseSong = () => {};
 // arrow function is a shorter and more concise way to write functions in JavaScript. 
 // It's a function expression, which is a function that's assigned to a variable.
 const renderSongs = (array) => {
@@ -93,7 +110,7 @@ const renderSongs = (array) => {
         .map((song) => {
             return `
         <li id="song-${song.id}" class="playlist-song">
-        <button class="playlist-song-info">
+        <button class="playlist-song-info" onclick="playSong(${song.id})">
             <span class="playlist-song-title">${song.title}</span>
             <span class="playlist-song-artist">${song.artist}</span>
             <span class="playlist-song-duration">${song.duration}</span>
@@ -110,14 +127,29 @@ const renderSongs = (array) => {
     playlistSongs.innerHTML = songsHTML;
 };
 
-const sortSongs = (array) => {
-    array.sort((a, b) => {
+// The addEventListener() method attaches an event handler to the specified element.
+playButton.addEventListener('click', () => {
+    if (!userData.currentSong) {
+        playSong(userData.songs[0].id);
+    } else {
+        playSong(userData.currentSong.id);
+    }
+});
+
+const sortSongs = () => {
+    userData.songs.sort((a, b) => {
         if (a.title < b.title) {
             return -1;
         }
+
         if (a.title > b.title) {
             return 1;
         }
+
         return 0;
     });
+
+    return userData.songs; // userData?.songs;
 };
+
+renderSongs(sortSongs());
