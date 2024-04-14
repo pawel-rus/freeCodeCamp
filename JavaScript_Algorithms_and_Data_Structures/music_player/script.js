@@ -99,12 +99,50 @@ const playSong = (id) => {
     }
     userData.currentSong = song;
     playButton.classList.add('playing');
+    highlightCurrentSong();
     audio.play();
 };
-
-const pauseSong = () => {};
 // arrow function is a shorter and more concise way to write functions in JavaScript. 
 // It's a function expression, which is a function that's assigned to a variable.
+const pauseSong = () => {
+    userData.songCurrentTime = audio.currentTime;
+    playButton.classList.remove('playing');
+    audio.pause();
+};
+
+const playNextSong = () => {
+    if (userData.currentSong === null) {
+        playSong(userData.songs[0].id);
+    } else {
+        const currentSongIndex = getCurrentSongIndex();
+        const nextSong = userData.songs[currentSongIndex + 1];
+        playSong(nextSong.id);
+    }
+};
+
+const playPreviousSong = () => {
+    if (userData.currentSong === null) {
+        return;
+    } else {
+        const currentSongIndex = getCurrentSongIndex();
+        const previousSong = userData.songs[currentSongIndex - 1];
+        playSong(previousSong.id);
+    }
+};
+
+const highlightCurrentSong = () => {
+    const playlistSongElements = document.querySelectorAll('.playlist-song');
+    const songToHighlight = document.getElementById(`song-${userData.currentSong.id}`);
+    playlistSongElements.forEach((songEl) => {
+        songEl.removeAttribute("aria-current");
+    });
+    if (songToHighlight) {
+        songToHighlight.setAttribute("aria-current", "true");
+    }
+};
+
+
+
 const renderSongs = (array) => {
     const songsHTML = array
         .map((song) => {
@@ -126,6 +164,11 @@ const renderSongs = (array) => {
 
     playlistSongs.innerHTML = songsHTML;
 };
+// The indexOf() array method returns the first index at which a given element can be found in the array, or -1 if the element is not present.
+const getCurrentSongIndex = () => {
+    //return userData.songs.findIndex((song) => song.id === userData.currentSong.id);
+    return userData.songs.indexOf(userData.currentSong);
+};
 
 // The addEventListener() method attaches an event handler to the specified element.
 playButton.addEventListener('click', () => {
@@ -135,6 +178,12 @@ playButton.addEventListener('click', () => {
         playSong(userData.currentSong.id);
     }
 });
+
+pauseButton.addEventListener('click', pauseSong);
+
+nextButton.addEventListener('click', playNextSong);
+
+previousButton.addEventListener('click', playPreviousSong);
 
 const sortSongs = () => {
     userData.songs.sort((a, b) => {
