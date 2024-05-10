@@ -100,6 +100,8 @@ const playSong = (id) => {
     userData.currentSong = song;
     playButton.classList.add('playing');
     highlightCurrentSong();
+    setPlayerDisplay();
+    setPlayButtonAccessibleText();
     audio.play();
 };
 // arrow function is a shorter and more concise way to write functions in JavaScript. 
@@ -129,6 +131,26 @@ const playPreviousSong = () => {
         playSong(previousSong.id);
     }
 };
+
+const shuffle = () => {
+    userData.songs.sort(() => Math.random() - 0.5);
+    userData.currentSong = null;
+    userData.songCurrentTime = 0;
+    renderSongs(userData.songs);
+    pauseSong();
+    setPlayerDisplay();
+    setPlayButtonAccessibleText();
+};
+
+const setPlayerDisplay = () => {
+    const playingSong = document.getElementById("player-song-title");
+    const songArtist = document.getElementById("player-song-artist");
+    const currentTitle = userData.currentSong.title;
+    const currentArtist = userData.currentSong.artist;
+};
+
+playingSong.textContent = currentTitle ? currentTitle : "";
+songArtist.textContent = currentArtist ? currentArtist : "";
 
 const highlightCurrentSong = () => {
     const playlistSongElements = document.querySelectorAll('.playlist-song');
@@ -164,6 +186,12 @@ const renderSongs = (array) => {
 
     playlistSongs.innerHTML = songsHTML;
 };
+
+const setPlayButtonAccessibleText = () => {
+    const song = userData.currentSong || userData.songs[0];
+    playButton.setAttribute("aria-label", song.title ? `Play ${song.title}` : "Play");
+};
+
 // The indexOf() array method returns the first index at which a given element can be found in the array, or -1 if the element is not present.
 const getCurrentSongIndex = () => {
     //return userData.songs.findIndex((song) => song.id === userData.currentSong.id);
@@ -184,6 +212,8 @@ pauseButton.addEventListener('click', pauseSong);
 nextButton.addEventListener('click', playNextSong);
 
 previousButton.addEventListener('click', playPreviousSong);
+
+shuffleButton.addEventListener('click', shuffle);
 
 const sortSongs = () => {
     userData.songs.sort((a, b) => {
